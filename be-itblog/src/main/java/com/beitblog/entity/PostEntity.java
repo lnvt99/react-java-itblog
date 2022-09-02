@@ -1,76 +1,89 @@
 package com.beitblog.entity;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "post")
 public class PostEntity extends BaseEntity {
-    @Column(name = "title", nullable = false)
-    private String title;
+  @Column(name = "title", nullable = false)
+  private String title;
 
-    @Column(name = "path", nullable = false)
-    private String path;
+  @Column(name = "path", nullable = false)
+  private String path;
 
-    @Column(name = "short_description")
-    private String shortDescription;
+  @Column(name = "summary", columnDefinition="TEXT")
+  private String summary;
 
-    @Lob
-    @Column(name = "content")
-    private String content;
+  @Column(name = "content", columnDefinition="TEXT")
+  private String content;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id")
-    private CategoryEntity category;
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "category_id", nullable = false)
+  private CategoryEntity category;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_id")
-    private AccountEntity account;
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "account_id", nullable = false)
+  private AccountEntity account;
 
-    public AccountEntity getAccount() {
-        return account;
-    }
+  @ManyToMany
+  @JoinTable(name = "post_section", joinColumns = @JoinColumn(name = "post_id", nullable = false), inverseJoinColumns = @JoinColumn(name = "section_id", nullable = false))
+  private List<SectionEntity> sections = new ArrayList<>();
 
-    public void setAccount(AccountEntity account) {
-        this.account = account;
-    }
+  public String getTitle() {
+    return title;
+  }
 
-    public CategoryEntity getCategory() {
-        return category;
-    }
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-    public void setCategory(CategoryEntity category) {
-        this.category = category;
-    }
+  public String getPath() {
+    return path;
+  }
 
-    public String getContent() {
-        return content;
-    }
+  public void setPath(String path) {
+    this.path = path;
+  }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+  public String getSummary() {
+    return summary;
+  }
 
-    public String getShortDescription() {
-        return shortDescription;
-    }
+  public void setSummary(String summary) {
+    this.summary = summary;
+  }
 
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
+  public String getContent() {
+    return content;
+  }
 
-    public String getPath() {
-        return path;
-    }
+  public void setContent(String content) {
+    this.content = content;
+  }
 
-    public void setPath(String path) {
-        this.path = path;
-    }
+  public CategoryEntity getCategory() {
+    return category;
+  }
 
-    public String getTitle() {
-        return title;
-    }
+  public void setCategory(CategoryEntity category) {
+    this.category = category;
+  }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+  public AccountEntity getAccount() {
+    return account;
+  }
+
+  public void setAccount(AccountEntity account) {
+    this.account = account;
+  }
+
+  public List<SectionEntity> getSections() {
+    return sections;
+  }
+
+  public void setSections(List<SectionEntity> sections) {
+    this.sections = sections;
+  }
 }

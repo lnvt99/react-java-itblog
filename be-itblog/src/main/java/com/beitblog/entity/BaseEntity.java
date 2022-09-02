@@ -4,39 +4,57 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @MappedSuperclass
-public class BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+public abstract class BaseEntity {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id", nullable = false)
+  private Long id;
 
-    @Column(name = "created_at", nullable = false)
-    private Timestamp createdAt;
+  @Column(name = "created_by", nullable = false)
+  private Long createdBy;
 
-    @Column(name = "updated_at")
-    private Timestamp updatedAt;
+  @Column(name = "created_at", nullable = false)
+  private Timestamp createdAt;
 
-    public Timestamp getUpdatedAt() {
-        return updatedAt;
-    }
+  @Column(name = "updated_by", nullable = false)
+  private Long updatedBy;
 
-    public void setUpdatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+  @Column(name = "updated_at", nullable = false)
+  private Timestamp updatedAt;
 
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
+  public Long getCreatedBy() {
+    return createdBy;
+  }
 
-    public Long getId() {
-        return id;
-    }
+  public void setCreatedBy(Long createdBy) {
+    this.createdBy = createdBy;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public Timestamp getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(Timestamp createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public Long getUpdatedBy() {
+    return updatedBy;
+  }
+
+  public void setUpdatedBy(Long updatedBy) {
+    this.updatedBy = updatedBy;
+  }
+
+  public Timestamp getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(Timestamp updatedAt) {
+    this.updatedAt = updatedAt;
+  }
 }

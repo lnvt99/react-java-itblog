@@ -1,19 +1,20 @@
 package com.beitblog.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "category")
-public class CategoryEntity extends BaseEntity {
+@Table(name = "section")
+public class SectionEntity extends BaseEntity {
+
   @Column(name = "title", nullable = false)
   private String title;
 
-  @Column(name = "path", nullable = false)
-  private String path;
-
-  @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+  @ManyToMany(mappedBy = "sections")
   private List<PostEntity> posts = new ArrayList<>();
 
   public String getTitle() {
@@ -22,14 +23,6 @@ public class CategoryEntity extends BaseEntity {
 
   public void setTitle(String title) {
     this.title = title;
-  }
-
-  public String getPath() {
-    return path;
-  }
-
-  public void setPath(String path) {
-    this.path = path;
   }
 
   public List<PostEntity> getPosts() {

@@ -7,47 +7,47 @@ import java.util.List;
 @Entity
 @Table(name = "account")
 public class AccountEntity extends BaseEntity {
-    @Column(name = "fullname", nullable = false)
-    private String fullname;
+  @Column(name = "fullname", nullable = false)
+  private String fullname;
 
-    @Column(name = "username", nullable = false)
-    private String username;
+  @Column(name = "username", nullable = false)
+  private String username;
 
-    @Column(name = "password", nullable = false)
-    private String password;
+  @Column(name = "password", nullable = false)
+  private String password;
 
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PostEntity> posts = new ArrayList<>();
+  @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<PostEntity> posts = new ArrayList<>();
 
-    public List<PostEntity> getPosts() {
-        return posts;
-    }
+  public String getFullname() {
+    return fullname;
+  }
 
-    public void setPosts(List<PostEntity> posts) {
-        this.posts = posts;
-    }
+  public void setFullname(String fullname) {
+    this.fullname = fullname;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-    public String getUsername() {
-        return username;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-    public String getFullname() {
-        return fullname;
-    }
+  public List<PostEntity> getPosts() {
+    return posts;
+  }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
+  public void setPosts(List<PostEntity> posts) {
+    this.posts = posts;
+  }
 }
