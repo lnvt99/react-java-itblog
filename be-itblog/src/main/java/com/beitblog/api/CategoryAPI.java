@@ -42,6 +42,11 @@ public class CategoryAPI {
     return iCategoryService.save(categoryDTO);
   }
 
+  @GetMapping(value = "/category/{id}")
+  public CategoryDTO show(@PathVariable("id") long id) {
+    return iCategoryService.findById(id);
+  }
+
   @PutMapping(value = "/category/{id}")
   public CategoryDTO update(@RequestBody CategoryDTO categoryDTO, @PathVariable("id") long id) {
     categoryDTO.setId(id);

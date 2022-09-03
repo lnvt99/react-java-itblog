@@ -10,6 +10,7 @@ public interface ICategoryService {
   List<CategoryDTO> findAll();
   List<CategoryDTO> findAll(Pageable pageable);
   List<CategoryDTO> findByTitle(String title);
+  CategoryDTO findById(long id);
   CategoryDTO save(CategoryDTO categoryDTO);
   void delete(long[] ids);
 }
