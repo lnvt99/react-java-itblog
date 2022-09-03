@@ -1,26 +1,37 @@
 package com.beitblog.entity;
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
   private Long id;
 
-  @Column(name = "created_by", nullable = false)
+  @Column(name = "created_by")
+  @CreatedBy
   private Long createdBy;
 
   @Column(name = "created_at", nullable = false)
-  private Timestamp createdAt;
+  @CreatedDate
+  private Date createdAt;
 
-  @Column(name = "updated_by", nullable = false)
+  @Column(name = "updated_by")
+  @LastModifiedBy
   private Long updatedBy;
 
   @Column(name = "updated_at", nullable = false)
-  private Timestamp updatedAt;
+  @LastModifiedDate
+  private Date updatedAt;
 
   public Long getId() {
     return id;
@@ -34,11 +45,11 @@ public abstract class BaseEntity {
     this.createdBy = createdBy;
   }
 
-  public Timestamp getCreatedAt() {
+  public Date getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(Timestamp createdAt) {
+  public void setCreatedAt(Date createdAt) {
     this.createdAt = createdAt;
   }
 
@@ -50,11 +61,11 @@ public abstract class BaseEntity {
     this.updatedBy = updatedBy;
   }
 
-  public Timestamp getUpdatedAt() {
+  public Date getUpdatedAt() {
     return updatedAt;
   }
 
-  public void setUpdatedAt(Timestamp updatedAt) {
+  public void setUpdatedAt(Date updatedAt) {
     this.updatedAt = updatedAt;
   }
 }

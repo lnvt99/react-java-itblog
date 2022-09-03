@@ -10,7 +10,6 @@ import java.util.List;
 @Entity
 @Table(name = "section")
 public class SectionEntity extends BaseEntity {
-
   @Column(name = "title", nullable = false)
   private String title;
 
