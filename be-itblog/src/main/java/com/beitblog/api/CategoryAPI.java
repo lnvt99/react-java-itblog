@@ -33,7 +33,7 @@ public class CategoryAPI {
   }
 
   @GetMapping(value = "/category", params = "title")
-  public List<CategoryDTO> get(@RequestParam String title) {
+  public List<CategoryDTO> findByTitle(@RequestParam String title) {
     return iCategoryService.findByTitle(title);
   }
 
