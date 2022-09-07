@@ -33,13 +33,18 @@ public class CategoryAPI {
   }
 
   @GetMapping(value = "/category", params = "title")
-  public List<CategoryDTO> get(@RequestParam String title) {
+  public List<CategoryDTO> findByTitle(@RequestParam String title) {
     return iCategoryService.findByTitle(title);
   }
 
   @PostMapping(value = "/category")
   public CategoryDTO store(@RequestBody CategoryDTO categoryDTO) {
     return iCategoryService.save(categoryDTO);
+  }
+
+  @GetMapping(value = "/category/{id}")
+  public CategoryDTO show(@PathVariable("id") long id) {
+    return iCategoryService.findById(id);
   }
 
   @PutMapping(value = "/category/{id}")
