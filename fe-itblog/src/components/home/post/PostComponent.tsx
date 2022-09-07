@@ -2,13 +2,11 @@ import React from 'react';
 import { Post } from '../../../model/PostModel';
 
 interface Props {
-    listPost: Array<Post>
+    listPost: Array<Post> | undefined
 }
-
 const PostComponent: React.FC<Props> = (props) => {
     const { listPost } = props;
 
-    console.log(props);
     return (
         <div className="grid grid-cols-2 gap-4 container mx-auto px-4 lg:grid-cols-4 md:grid-cols-3">
             {

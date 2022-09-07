@@ -5,14 +5,11 @@ import {
 } from "react-router-dom";
 import CreatePostComponent from "../components/create-post/CreatePostComponent";
 import PostComponent from "../components/home/post/PostComponent";
-import { Post } from "../model/PostModel";
 import { dummyDataPost } from "../service/service";
-import data from '../dummy-data/DummyData.json'
+import { Post } from '../model/PostModel';
 const RouterComponet = () => {
 
-    // const [listPost, setListPost] = useState<Array<Post> | undefined>();
-    const [listPost, setListPost] = useState<[]>();
-    
+    const [listPost, setListPost] = useState<Array<Post> | undefined>();
 
     // Get API from BE
     // useEffect(() => {
@@ -27,7 +24,7 @@ const RouterComponet = () => {
     return (
         <div>
             <Routes>
-                <Route path="/" element={listPost && <PostComponent listPost={listPost}/>} />
+                <Route path="/" element={<PostComponent listPost={listPost} />} />
                 <Route path="/create" element={<CreatePostComponent />} />
             </Routes>
         </div>
