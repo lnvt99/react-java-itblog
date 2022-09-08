@@ -2,7 +2,8 @@ package com.beitblog.dto;
 
 public class CategoryDTO extends BaseDTO {
   private String title;
-  private String path;
+  private String slug;
+  private String description;
 
   public String getTitle() {
     return title;
@@ -12,11 +13,19 @@ public class CategoryDTO extends BaseDTO {
     this.title = title;
   }
 
-  public String getPath() {
-    return path;
+  public String getSlug() {
+    return slug;
   }
 
-  public void setPath(String path) {
-    this.path = path;
+  public void setSlug(String slug) {
+    this.slug = slug;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 }
