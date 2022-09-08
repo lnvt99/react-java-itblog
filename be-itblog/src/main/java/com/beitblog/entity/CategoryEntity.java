@@ -10,8 +10,11 @@ public class CategoryEntity extends BaseEntity {
   @Column(name = "title", nullable = false)
   private String title;
 
-  @Column(name = "path", nullable = false)
-  private String path;
+  @Column(name = "slug", nullable = false)
+  private String slug;
+
+  @Column(name = "description", nullable = true)
+  private String description;
 
   @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<PostEntity> posts = new ArrayList<>();
@@ -24,12 +27,20 @@ public class CategoryEntity extends BaseEntity {
     this.title = title;
   }
 
-  public String getPath() {
-    return path;
+  public String getSlug() {
+    return slug;
   }
 
-  public void setPath(String path) {
-    this.path = path;
+  public void setSlug(String slug) {
+    this.slug = slug;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   public List<PostEntity> getPosts() {

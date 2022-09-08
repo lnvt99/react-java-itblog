@@ -2,9 +2,12 @@ package com.beitblog.dto;
 
 public class PostDTO extends BaseDTO {
   private String title;
-  private String path;
+  private String slug;
   private String summary;
   private String content;
+  private String imageUrl;
+  private String category;
+  private String user;
 
   public String getTitle() {
     return title;
@@ -14,12 +17,12 @@ public class PostDTO extends BaseDTO {
     this.title = title;
   }
 
-  public String getPath() {
-    return path;
+  public String getSlug() {
+    return slug;
   }
 
-  public void setPath(String path) {
-    this.path = path;
+  public void setSlug(String slug) {
+    this.slug = slug;
   }
 
   public String getSummary() {
@@ -36,5 +39,29 @@ public class PostDTO extends BaseDTO {
 
   public void setContent(String content) {
     this.content = content;
+  }
+
+  public String getImageUrl() {
+    return imageUrl;
+  }
+
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
+  }
+
+  public String getCategory() {
+    return category;
+  }
+
+  public void setCategory(String category) {
+    this.category = category;
+  }
+
+  public String getUser() {
+    return user;
+  }
+
+  public void setUser(String user) {
+    this.user = user;
   }
 }

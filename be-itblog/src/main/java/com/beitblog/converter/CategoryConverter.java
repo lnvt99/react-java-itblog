@@ -9,7 +9,8 @@ public class CategoryConverter {
   public CategoryEntity toEntity(CategoryDTO dto) {
     CategoryEntity entity = new CategoryEntity();
     entity.setTitle(dto.getTitle());
-    entity.setPath(dto.getPath());
+    entity.setSlug(dto.getSlug());
+    entity.setDescription(dto.getDescription());
     return entity;
   }
 
@@ -17,7 +18,8 @@ public class CategoryConverter {
     CategoryDTO dto = new CategoryDTO();
     dto.setId(entity.getId());
     dto.setTitle(entity.getTitle());
-    dto.setPath(entity.getPath());
+    dto.setSlug(entity.getSlug());
+    dto.setDescription(entity.getDescription());
     dto.setCreatedBy(entity.getCreatedBy());
     dto.setCreatedAt(entity.getCreatedAt());
     dto.setUpdatedBy(entity.getUpdatedBy());
@@ -27,7 +29,8 @@ public class CategoryConverter {
 
   public CategoryEntity toEntity(CategoryDTO dto, CategoryEntity entity) {
     entity.setTitle(dto.getTitle());
-    entity.setPath(dto.getPath());
+    entity.setSlug(dto.getSlug());
+    entity.setDescription(dto.getDescription());
     return entity;
   }
 }

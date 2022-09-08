@@ -15,10 +15,8 @@ import java.util.List;
 public class PostService implements IPostService {
   @Autowired
   private IPostRepository iPostRepository;
-
   @Autowired
   private PostConverter postConverter;
-
   @Override
   public int count() {
     return (int) iPostRepository.count();

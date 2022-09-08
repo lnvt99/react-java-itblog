@@ -38,7 +38,7 @@ public class PostAPI {
   }
 
   @PostMapping(value = "/post")
-  public PostDTO store(PostDTO postDTO) {
+  public PostDTO store(@RequestBody PostDTO postDTO) {
     return iPostService.save(postDTO);
   }
 
@@ -48,13 +48,13 @@ public class PostAPI {
   }
 
   @PutMapping(value = "/post/{id}")
-  public PostDTO update(PostDTO postDTO, @PathVariable("id") long id) {
+  public PostDTO update(@RequestBody PostDTO postDTO, @PathVariable("id") long id) {
     postDTO.setId(id);
     return iPostService.save(postDTO);
   }
 
   @DeleteMapping(value = "/post")
-  public void delete(long[] ids) {
+  public void delete(@RequestBody long[] ids) {
     iPostService.delete(ids);
   }
 }
