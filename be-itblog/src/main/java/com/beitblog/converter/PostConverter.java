@@ -14,7 +14,8 @@ public class PostConverter {
   public PostEntity toEntity(PostDTO dto) {
     PostEntity entity = new PostEntity();
     entity.setTitle(dto.getTitle());
-    entity.setSlug(dto.getSlug());
+
+    entity.setSlug(entity.buildSlug());
     entity.setSummary(dto.getSummary());
     entity.setContent(dto.getContent());
     entity.setImageUrl(dto.getImageUrl());
@@ -39,7 +40,7 @@ public class PostConverter {
 
   public PostEntity toEntity(PostDTO dto, PostEntity entity) {
     entity.setTitle(dto.getTitle());
-    entity.setSlug(dto.getSlug());
+    entity.setSlug(entity.buildSlug());
     entity.setSummary(dto.getSummary());
     entity.setContent(dto.getContent());
     entity.setImageUrl(dto.getImageUrl());

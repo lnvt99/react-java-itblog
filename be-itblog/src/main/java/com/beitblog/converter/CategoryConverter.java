@@ -9,7 +9,7 @@ public class CategoryConverter {
   public CategoryEntity toEntity(CategoryDTO dto) {
     CategoryEntity entity = new CategoryEntity();
     entity.setTitle(dto.getTitle());
-    entity.setSlug(dto.getSlug());
+    entity.setSlug(entity.buildSlug());
     entity.setDescription(dto.getDescription());
     return entity;
   }
@@ -29,7 +29,7 @@ public class CategoryConverter {
 
   public CategoryEntity toEntity(CategoryDTO dto, CategoryEntity entity) {
     entity.setTitle(dto.getTitle());
-    entity.setSlug(dto.getSlug());
+    entity.setSlug(entity.buildSlug());
     entity.setDescription(dto.getDescription());
     return entity;
   }
