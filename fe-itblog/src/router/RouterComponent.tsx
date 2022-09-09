@@ -18,7 +18,7 @@ interface Post {
 
 const RouterComponet = () => {
 
-    const [listPost, setListPost] = useState<Array<Post> | undefined>();
+    const [listPost, setListPost] = useState();
 
     useEffect(() => {
         async function getPost() {
@@ -26,7 +26,7 @@ const RouterComponet = () => {
                 const response = await axios.get('http://localhost:8080/api/posts');
                 setListPost(response.data)
             } catch (error) {
-                // Spinner component
+                console.log(error)
             }
         }
 
