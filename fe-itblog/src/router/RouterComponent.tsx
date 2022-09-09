@@ -8,40 +8,36 @@ import axios from 'axios';
 
 import PostComponent from '../components/home/post/PostComponent';
 import CreatePostComponent from '../components/create-post/CreatePostComponent';
-import { Post } from '../model/PostModel';
-import { dummyDataPost } from '../service/service';
+import { PostModel } from '../model/PostModel';
+
+interface Post {
+    currentPage: number,
+    totalPage: number,
+    listPost: PostModel[]
+}
 
 const RouterComponet = () => {
 
     const [listPost, setListPost] = useState<Array<Post> | undefined>();
 
-    // Get API from BE
-    // useEffect(() => {
-    //     async function run() {
-    //         const response = await fetch('');
-    //         const result = await response.json();
-    //         setListPost(result);
-    //     };
-    //     run();
-    // }, [])
-
     useEffect(() => {
         async function getPost() {
             try {
-                const response = await axios.get('http://localhost:8080/api/categories');
-                console.log(response.data);
+                const response = await axios.get('http://localhost:8080/api/posts');
+                setListPost(response.data)
             } catch (error) {
-                console.error(error);
+                // Spinner component
             }
         }
 
-        getPost()
-    })
+        getPost();
+    }, [])
+
 
     return (
         <div>
             <Routes>
-                <Route path="/" element={<PostComponent listPost={listPost} />} />
+                <Route path="/" element={listPost && <PostComponent listPost = { listPost }/>} />
                 <Route path="/create" element={<CreatePostComponent />} />
             </Routes>
         </div>
