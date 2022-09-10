@@ -1,6 +1,15 @@
 package com.beitblog.entity;
 
-import javax.persistence.*;
+import com.beitblog.utility.Slug;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.CascadeType;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -10,7 +19,7 @@ public class PostEntity extends BaseEntity {
   @Column(name = "title", nullable = false)
   private String title;
 
-  @Column(name = "slug", nullable = false)
+  @Column(name = "slug", nullable = false, unique = true)
   private String slug;
 
   @Column(name = "summary", columnDefinition="TEXT")
@@ -96,5 +105,9 @@ public class PostEntity extends BaseEntity {
 
   public void setSections(List<SectionEntity> sections) {
     this.sections = sections;
+  }
+
+  public String buildSlug() {
+    return Slug.makeSlug(getTitle());
   }
 }

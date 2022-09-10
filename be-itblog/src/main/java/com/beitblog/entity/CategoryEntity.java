@@ -1,6 +1,12 @@
 package com.beitblog.entity;
 
-import javax.persistence.*;
+import com.beitblog.utility.Slug;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.CascadeType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +16,7 @@ public class CategoryEntity extends BaseEntity {
   @Column(name = "title", nullable = false)
   private String title;
 
-  @Column(name = "slug", nullable = false)
+  @Column(name = "slug", nullable = false, unique = true)
   private String slug;
 
   @Column(name = "description", nullable = true)
@@ -49,5 +55,9 @@ public class CategoryEntity extends BaseEntity {
 
   public void setPosts(List<PostEntity> posts) {
     this.posts = posts;
+  }
+
+  public String buildSlug() {
+    return Slug.makeSlug(getTitle());
   }
 }
