@@ -65,11 +65,17 @@ public class CategoryService implements ICategoryService {
   @Override
   public CategoryDTO save(CategoryDTO categoryDTO) {
     CategoryEntity categoryEntity;
+    int count = 0;
     if (categoryDTO.getId() != null) {
       CategoryEntity oldCategoryEntity = iCategoryRepository.findById(categoryDTO.getId()).get();
       categoryEntity = categoryConverter.toEntity(categoryDTO, oldCategoryEntity);
     } else {
       categoryEntity = categoryConverter.toEntity(categoryDTO);
+    }
+    categoryEntity.setSlug(categoryEntity.buildSlug());
+    while (iCategoryRepository.existsBySlug(categoryEntity.getSlug())) {
+      count++;
+      categoryEntity.setSlug(categoryEntity.buildSlug() + "-" +count);
     }
     categoryEntity = iCategoryRepository.save(categoryEntity);
     return categoryConverter.toDTO(categoryEntity);

@@ -9,4 +9,5 @@ public interface ICategoryRepository extends JpaRepository<CategoryEntity, Long>
   List<CategoryEntity> findByTitleContaining(String title);
   CategoryEntity findById(long id);
   CategoryEntity findOneBySlug(String slug);
+  boolean existsBySlug(String slug);
 }

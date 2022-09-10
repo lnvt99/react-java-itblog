@@ -63,11 +63,17 @@ public class PostService implements IPostService {
   @Override
   public PostDTO save(PostDTO postDTO) {
     PostEntity postEntity;
+    int count = 0;
     if (postDTO.getId() != null) {
       PostEntity oldPostEntity = iPostRepository.findById(postDTO.getId()).get();
       postEntity = postConverter.toEntity(postDTO, oldPostEntity);
     } else {
       postEntity = postConverter.toEntity(postDTO);
+    }
+    postEntity.setSlug(postEntity.buildSlug());
+    while (iPostRepository.existsBySlug(postEntity.getSlug())) {
+      count++;
+      postEntity.setSlug(postEntity.buildSlug() + "-" +count);
     }
     postEntity = iPostRepository.save(postEntity);
     return postConverter.toDTO(postEntity);
