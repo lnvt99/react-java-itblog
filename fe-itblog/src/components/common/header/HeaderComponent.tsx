@@ -15,7 +15,7 @@ const navigation = [
     { name: 'Dashboard', href: '/#', current: false },
     { name: 'Create Post', href: '/create', current: false },
     { name: 'Category', href: '#', current: false },
-    { name: 'Management', href: '#', current: false },
+    { name: 'Management', href: '/manage', current: false },
 ]
 const userNavigation = [
     { name: 'Your Profile', href: '#' },

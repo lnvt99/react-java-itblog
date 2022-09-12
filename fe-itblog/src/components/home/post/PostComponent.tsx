@@ -1,22 +1,21 @@
 import React from 'react';
-import { PostModel } from '../../../model/PostModel';
+
+import { Post } from '../../../model/Model'
 
 interface Props {
+    postDTOList: Post[],
     currentPage: number,
     totalPage: number,
-    listPost: PostModel[]
 }
-const PostComponent: React.FC<Props> = (props) => {
 
-    const {currentPage, totalPage,listPost} = props;
-    console.log(listPost)
+const PostComponent: React.FC<Props> = ({ postDTOList, currentPage, totalPage}) => {
 
     return (
         <div className="grid grid-cols-2 gap-4 container mx-auto px-4 lg:grid-cols-4 md:grid-cols-3">
             {
-                listPost && listPost.map((item) => (
+                postDTOList && postDTOList.map((item) => (
                     <div key = {item.id} className=" mt-3 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 container ">
-                        <a href="#" className="flex justify-center">
+                        <a href={item.slug} className="flex justify-center">
                             <img className="rounded-t-lg overflow-hidden w-48 h-48 px-4 py-4 " src={item.imgUrl} alt={item.title} />
                         </a>
                         <div className="p-5">

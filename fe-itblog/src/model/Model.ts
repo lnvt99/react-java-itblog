@@ -1,4 +1,4 @@
-export interface PostModel {
+export interface Post {
     category: string,
     content: string,
     createdAt: Date,
@@ -12,3 +12,4 @@ export interface PostModel {
     updatedBy: string,
     user: string
 }
+
