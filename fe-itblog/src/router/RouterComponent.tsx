@@ -9,6 +9,8 @@ import axios from 'axios';
 import PostComponent from '../components/home/post/PostComponent';
 import CreatePostComponent from '../components/create-post/CreatePostComponent';
 import ManagementComponent from '../components/management/ManagementComponent';
+import DetailComponent from '../components/detail/DetailComponent';
+import SpinnerComponent from '../components/spinner/SpinnerComponent';
 
 const RouterComponet = () => {
 
@@ -39,7 +41,9 @@ const RouterComponet = () => {
                 <Route path="/" element={listPost && <PostComponent currentPage={ currentPage } totalPage = { totalPage } postDTOList = { listPost }/> } />
                 <Route path="/create" element={<CreatePostComponent />} />
                 <Route path="/manage" element={listPost && <ManagementComponent postDTOList = { listPost }/>} />
+                <Route path="/:slug" element={<DetailComponent /> } ></Route>
             </Routes>
+            {/* <SpinnerComponent /> */}
         </div>
     )
 }
