@@ -5,8 +5,15 @@ import com.beitblog.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import java.util.List;
 
 @CrossOrigin
@@ -33,13 +40,18 @@ public class CategoryAPI {
   }
 
   @GetMapping(value = "/category", params = "title")
-  public List<CategoryDTO> get(@RequestParam String title) {
+  public List<CategoryDTO> findByTitle(@RequestParam String title) {
     return iCategoryService.findByTitle(title);
   }
 
   @PostMapping(value = "/category")
   public CategoryDTO store(@RequestBody CategoryDTO categoryDTO) {
     return iCategoryService.save(categoryDTO);
+  }
+
+  @GetMapping(value = "/category/{id}")
+  public CategoryDTO show(@PathVariable("id") long id) {
+    return iCategoryService.findById(id);
   }
 
   @PutMapping(value = "/category/{id}")

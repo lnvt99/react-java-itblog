@@ -1,6 +1,15 @@
 package com.beitblog.entity;
 
-import javax.persistence.*;
+import com.beitblog.utility.Slug;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.CascadeType;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -10,8 +19,8 @@ public class PostEntity extends BaseEntity {
   @Column(name = "title", nullable = false)
   private String title;
 
-  @Column(name = "path", nullable = false)
-  private String path;
+  @Column(name = "slug", nullable = false, unique = true)
+  private String slug;
 
   @Column(name = "summary", columnDefinition="TEXT")
   private String summary;
@@ -19,16 +28,19 @@ public class PostEntity extends BaseEntity {
   @Column(name = "content", columnDefinition="TEXT")
   private String content;
 
+  @Column(name = "image_url", columnDefinition="TEXT")
+  private String imageUrl;
+
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "category_id", nullable = false)
   private CategoryEntity category;
 
   @ManyToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "account_id", nullable = false)
+  @JoinColumn(name = "account_id", nullable = true)
   private AccountEntity account;
 
   @ManyToMany
-  @JoinTable(name = "post_section", joinColumns = @JoinColumn(name = "post_id", nullable = false), inverseJoinColumns = @JoinColumn(name = "section_id", nullable = false))
+  @JoinTable(name = "post_section", joinColumns = @JoinColumn(name = "post_id", nullable = true), inverseJoinColumns = @JoinColumn(name = "section_id", nullable = false))
   private List<SectionEntity> sections = new ArrayList<>();
 
   public String getTitle() {
@@ -39,12 +51,12 @@ public class PostEntity extends BaseEntity {
     this.title = title;
   }
 
-  public String getPath() {
-    return path;
+  public String getSlug() {
+    return slug;
   }
 
-  public void setPath(String path) {
-    this.path = path;
+  public void setSlug(String slug) {
+    this.slug = slug;
   }
 
   public String getSummary() {
@@ -61,6 +73,14 @@ public class PostEntity extends BaseEntity {
 
   public void setContent(String content) {
     this.content = content;
+  }
+
+  public String getImageUrl() {
+    return imageUrl;
+  }
+
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
   }
 
   public CategoryEntity getCategory() {
@@ -85,5 +105,9 @@ public class PostEntity extends BaseEntity {
 
   public void setSections(List<SectionEntity> sections) {
     this.sections = sections;
+  }
+
+  public String buildSlug() {
+    return Slug.makeSlug(getTitle());
   }
 }
