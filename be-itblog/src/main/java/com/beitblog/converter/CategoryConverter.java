@@ -20,7 +20,6 @@ public class CategoryConverter {
 
   public CategoryDTO toDTO(CategoryEntity entity) {
     CategoryDTO dto = new CategoryDTO();
-    dto.setId(entity.getId());
     dto.setTitle(entity.getTitle());
     dto.setSlug(entity.getSlug());
     dto.setDescription(entity.getDescription());

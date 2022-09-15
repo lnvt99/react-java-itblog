@@ -5,64 +5,85 @@ import com.beitblog.service.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-
-import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
+@RequestMapping(path = "/post")
 public class PostAPI {
   @Autowired
   private IPostService iPostService;
 
-  @GetMapping(value = "/posts")
-  public PostOutput get(
+  @GetMapping(value = "")
+  public ResponseEntity<ResponseAPI> get(
     @RequestParam(value = "page", required = false) Integer page,
     @RequestParam(value = "limit", required = false) Integer limit
   ) {
     PostOutput postOutput = new PostOutput();
-    if (page != null && limit != null) {
-      postOutput.setCurrentPage(page);
-      Pageable pageable = PageRequest.of(page - 1, limit);
-      postOutput.setPostDTOList(iPostService.findAll(pageable));
-      postOutput.setTotalPage((int) Math.ceil((double) (iPostService.count()) / limit));
-    } else {
-      postOutput.setPostDTOList(iPostService.findAll());
+
+    page = page != null ? page : 1;
+    limit = limit != null ? limit : 10;
+
+    postOutput.setCurrentPage(page);
+    Pageable pageable = PageRequest.of(page - 1, limit);
+    postOutput.setPostDTOList(iPostService.findAll(pageable));
+    postOutput.setTotalPage((int) Math.ceil((double) (iPostService.count()) / limit));
+    return ResponseEntity.status(HttpStatus.OK).body(
+      new ResponseAPI("ok", "Get all posts successfully", postOutput)
+    );
+  }
+
+  @GetMapping(value = "", params = "title")
+  public ResponseEntity<ResponseAPI> findByTitle(@RequestParam String title) {
+    return ResponseEntity.status(HttpStatus.OK).body(
+      new ResponseAPI("ok", "Get posts by title successfully", iPostService.findByTitle(title))
+    );
+  }
+
+  @PostMapping(value = "")
+  public ResponseEntity<ResponseAPI> store(@RequestBody PostDTO postDTO) {
+    return ResponseEntity.status(HttpStatus.OK).body(
+      new ResponseAPI("ok", "Insert post successfully", iPostService.save(postDTO))
+    );
+  }
+
+  @GetMapping(value = "/{id}")
+  public ResponseEntity<ResponseAPI> show(@PathVariable("id") long id) {
+    if (iPostService.existsById(id)) {
+      return ResponseEntity.status(HttpStatus.OK).body(
+        new ResponseAPI("ok", "Post found", iPostService.findById(id))
+      );
     }
-    return postOutput;
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+      new ResponseAPI("failed", "Post not found", "")
+    );
   }
 
-  @GetMapping(value = "/post", params = "title")
-  public List<PostDTO> findByTitle(@RequestParam String title) {
-    return iPostService.findByTitle(title);
+  @PutMapping(value = "/{id}")
+  public ResponseEntity<ResponseAPI> update(@RequestBody PostDTO postDTO, @PathVariable("id") long id) {
+    if (iPostService.existsById(id)) {
+      postDTO.setId(id);
+      return ResponseEntity.status(HttpStatus.OK).body(
+        new ResponseAPI("ok", "Update post successfully", iPostService.save(postDTO))
+      );
+    }
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+      new ResponseAPI("failed", "Post not found", "")
+    );
   }
 
-  @PostMapping(value = "/post")
-  public PostDTO store(@RequestBody PostDTO postDTO) {
-    return iPostService.save(postDTO);
-  }
-
-  @GetMapping(value = "/post/{id}")
-  public PostDTO show(@PathVariable("id") long id) {
-    return iPostService.findById(id);
-  }
-
-  @PutMapping(value = "/post/{id}")
-  public PostDTO update(@RequestBody PostDTO postDTO, @PathVariable("id") long id) {
-    postDTO.setId(id);
-    return iPostService.save(postDTO);
-  }
-
-  @DeleteMapping(value = "/post")
-  public void delete(@RequestBody long[] ids) {
-    iPostService.delete(ids);
+  @DeleteMapping(value = "/{id}")
+  public ResponseEntity<ResponseAPI> delete(@PathVariable("id") long id) {
+    if (iPostService.existsById(id)) {
+      iPostService.delete(id);
+      return ResponseEntity.status(HttpStatus.OK).body(
+        new ResponseAPI("ok", "Delete post successfully", "")
+      );
+    }
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+      new ResponseAPI("failed", "Post not found", "")
+    );
   }
 }

@@ -23,6 +23,11 @@ public class PostService implements IPostService {
   }
 
   @Override
+  public boolean existsById(long id) {
+    return iPostRepository.existsById(id);
+  }
+
+  @Override
   public List<PostDTO> findAll() {
     List<PostDTO> postDTOList = new ArrayList<>();
     List<PostEntity> postEntityList = iPostRepository.findAll();
@@ -80,9 +85,7 @@ public class PostService implements IPostService {
   }
 
   @Override
-  public void delete(long[] ids) {
-    for (long id: ids) {
-      iPostRepository.deleteById(id);
-    }
+  public void delete(long id) {
+    iPostRepository.deleteById(id);
   }
 }

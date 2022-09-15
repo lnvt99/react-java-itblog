@@ -28,7 +28,7 @@ public class PostConverter {
     dto.setSummary(entity.getSummary());
     dto.setContent(entity.getContent());
     dto.setImageUrl(entity.getImageUrl());
-    dto.setCategory(iCategoryRepository.findById((long) entity.getId()).getTitle());
+    dto.setCategory(iCategoryRepository.findById((long) entity.getCategory().getId()).getTitle());
     dto.setCreatedBy(entity.getCreatedBy());
     dto.setCreatedAt(entity.getCreatedAt());
     dto.setUpdatedBy(entity.getUpdatedBy());
