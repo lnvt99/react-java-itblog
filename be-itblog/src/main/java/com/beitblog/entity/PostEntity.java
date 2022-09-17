@@ -1,6 +1,7 @@
 package com.beitblog.entity;
 
 import com.beitblog.utility.Slug;
+import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.CascadeType;
 import java.util.List;
 import java.util.ArrayList;
 
+@Data
 @Entity
 @Table(name = "post")
 public class PostEntity extends BaseEntity {
@@ -42,70 +44,6 @@ public class PostEntity extends BaseEntity {
   @ManyToMany
   @JoinTable(name = "post_section", joinColumns = @JoinColumn(name = "post_id", nullable = true), inverseJoinColumns = @JoinColumn(name = "section_id", nullable = false))
   private List<SectionEntity> sections = new ArrayList<>();
-
-  public String getTitle() {
-    return title;
-  }
-
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-  public String getSlug() {
-    return slug;
-  }
-
-  public void setSlug(String slug) {
-    this.slug = slug;
-  }
-
-  public String getSummary() {
-    return summary;
-  }
-
-  public void setSummary(String summary) {
-    this.summary = summary;
-  }
-
-  public String getContent() {
-    return content;
-  }
-
-  public void setContent(String content) {
-    this.content = content;
-  }
-
-  public String getImageUrl() {
-    return imageUrl;
-  }
-
-  public void setImageUrl(String imageUrl) {
-    this.imageUrl = imageUrl;
-  }
-
-  public CategoryEntity getCategory() {
-    return category;
-  }
-
-  public void setCategory(CategoryEntity category) {
-    this.category = category;
-  }
-
-  public AccountEntity getAccount() {
-    return account;
-  }
-
-  public void setAccount(AccountEntity account) {
-    this.account = account;
-  }
-
-  public List<SectionEntity> getSections() {
-    return sections;
-  }
-
-  public void setSections(List<SectionEntity> sections) {
-    this.sections = sections;
-  }
 
   public String buildSlug() {
     return Slug.makeSlug(getTitle());
