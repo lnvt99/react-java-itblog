@@ -14,6 +14,8 @@ interface Props {
 
 const PostComponent: React.FC<Props> = ({ postDTOList, currentPage, totalPage}) => {
 
+    console.log()
+
     return (
         <div className="grid grid-cols-2 gap-4 container mx-auto px-4 lg:grid-cols-4 md:grid-cols-3">
             {
