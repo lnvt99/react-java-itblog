@@ -7,10 +7,11 @@ import java.util.List;
 
 public interface IPostService {
   int count();
+  boolean existsById(long id);
   List<PostDTO> findAll();
   List<PostDTO> findAll(Pageable pageable);
   List<PostDTO> findByTitle(String title);
   PostDTO findById(long id);
   PostDTO save(PostDTO postDTO);
-  void delete(long[] ids);
+  void delete(long id);
 }

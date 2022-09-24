@@ -1,12 +1,7 @@
 #### Category APIs
-**GET (without pagination)**
-```
-URL: http://localhost:8080/api/categories
-Params: None
-```
 **GET (with pagination)**
 ```
-URL: http://localhost:8080/api/categories?page={number}&limit={number}
+URL: http://localhost:8080/api/category?page={number}&limit={number}
 Params: Header
   1. page: {number}
   2. limit: {number}

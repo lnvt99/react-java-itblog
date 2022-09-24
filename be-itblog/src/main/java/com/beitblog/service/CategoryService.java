@@ -25,6 +25,11 @@ public class CategoryService implements ICategoryService {
   }
 
   @Override
+  public boolean existsById(long id) {
+    return iCategoryRepository.existsById(id);
+  }
+
+  @Override
   public List<CategoryDTO> findAll() {
     List<CategoryDTO> categoryDTOList = new ArrayList<>();
     List<CategoryEntity> categoryEntityList = iCategoryRepository.findAll();
@@ -82,9 +87,7 @@ public class CategoryService implements ICategoryService {
   }
 
   @Override
-  public void delete(long[] ids) {
-    for (Long id: ids) {
-      iCategoryRepository.deleteById(id);
-    }
+  public void delete(long id) {
+    iCategoryRepository.deleteById(id);
   }
 }
